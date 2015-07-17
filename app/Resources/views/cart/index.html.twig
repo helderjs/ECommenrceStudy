@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table>
+        <thead>
+            <th>
+                <td>Product</td>
+                <td>Quantity</td>
+                <td>Unit Price</td>
+                <td>Final Price</td>
+            </th>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td><input type="text" max="3" value="{{ product.quantity }}"></td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity * product.price }}</td>
+            </tr>
+        </tbody>
+    {% endfor %}
+    </table>
+    <p><a href="/"><button>Continue shopping</button></a><a href="/cart/checkout"><button>Checkout</button></a></p>
+{% endblock %}
