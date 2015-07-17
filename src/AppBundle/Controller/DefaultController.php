@@ -4,15 +4,18 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/app/example", name="homepage")
+     * @Route("/")
      */
     public function indexAction()
     {
-        return $this->render('default/index.html.twig');
+        $products = $this->getDoctrine()
+            ->getRepository('AppBundle:Product')
+            ->findAll();
+
+        return $this->render('default/index.html.twig', ['products' => $products]);
     }
 }
