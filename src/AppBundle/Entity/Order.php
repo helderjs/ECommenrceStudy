@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="order")
+ * @ORM\Table(name="`order`")
  */
 class Order
 {
@@ -33,7 +33,7 @@ class Order
 
     /**
      * @ORM\OneToOne(targetEntity="Customer")
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", onDelete="set null")
      **/
     private $customer;
 
@@ -50,7 +50,7 @@ class Order
     /**
      * @ORM\ManyToMany(targetEntity="Item")
      * @ORM\JoinTable(name="orders_items",
-     *      joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id", onDelete="cascade")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="item_id", referencedColumnName="id")}
      *      )
      **/

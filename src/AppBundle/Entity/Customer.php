@@ -29,7 +29,7 @@ class Customer
 
     /**
      * @ORM\ManyToOne(targetEntity="Address")
-     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", onDelete="set null")
      **/
     private $address;
 
@@ -37,6 +37,11 @@ class Customer
      * @ORM\Column(type="string")
      */
     private $username;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $salt;
 
     /**
      * @ORM\Column(type="string")
@@ -121,6 +126,22 @@ class Customer
     public function setUsername($username)
     {
         $this->username = $username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
     }
 
     /**

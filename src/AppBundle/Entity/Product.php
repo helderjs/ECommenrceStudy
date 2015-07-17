@@ -39,9 +39,9 @@ class Product
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity="category")
+     * @ORM\ManyToMany(targetEntity="Category")
      * @ORM\JoinTable(name="products_categories",
-     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="cascade")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
      *      )
      **/
