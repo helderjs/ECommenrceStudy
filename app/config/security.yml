@@ -6,6 +6,10 @@ security:
     providers:
         in_memory:
             memory: ~
+        ecommerce_provider:
+            entity:
+                class: AppBundle:Customer
+                property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -16,6 +20,14 @@ security:
         main:
             anonymous: ~
             # activate different ways to authenticate
+            provider: ecommerce_provider
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                failure_path: /login
+            logout:
+                path:   /logout
+                target: /
 
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
@@ -27,3 +39,7 @@ security:
         AppBundle\Entity\Customer:
             algorithm: bcrypt
             cost: 12
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/order/*, roles: ROLE_USER }

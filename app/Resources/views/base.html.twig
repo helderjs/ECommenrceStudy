@@ -7,6 +7,22 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <div>
+            {% if is_granted("ROLE_USER") %}
+                <span>Olá {{ app.user.name }}</span>
+            {% endif %}
+
+            {% set cart_data = app.session.get('cart') %}
+            {% set cart_count = 0 %}
+            {% for item in cart_data %}
+            {% set cart_count = cart_count + item.quantity %}
+            {% endfor %}
+            <a href="/cart"><span>{{ cart_count }}</span></a>
+
+            {% if is_granted("ROLE_USER") %}
+                <a href="/logout">Sair</a>
+            {% endif %}
+        </div>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
