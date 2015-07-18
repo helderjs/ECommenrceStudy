@@ -12,15 +12,8 @@ class ProductController extends Controller
      */
     public function indexAction($id)
     {
-        $product = $this->getDoctrine()
-            ->getRepository('AppBundle:Product')
-            ->find($id);
-
-        if (!$product) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
-        }
+        $service = $this->get('ProductService');
+        $product = $service->getProduct($id);
 
         return $this->render('product/index.html.twig', ['product' => $product]);
     }
