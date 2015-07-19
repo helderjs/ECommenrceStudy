@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Preço Unitário</th>
+                        <th>Preço Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% set total = 0 %}
+                {% for item in order.items %}
+                    {% set total = total + (item.product.price * item.quantity) %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.price }}</td>
+                        <td>{{ item.quantity * item.product.price }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+                        <b>Pagamento:</b>
+                        {% if order.payment is empty %}
+                            Não defiinido <a href="/order/open/{{ order.id }}"><button>Pagar Agora</button></a>
+                        {% else %}
+                            {{ order.payment }}
+                        {% endif %}
+                    </td>
+                    <td><b>Status:</b> {{ order.status }}</td>
+                    <td colspan="2" align="right"><b>Total:</b> {{ total }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h4>Dados:</h4>
+            <p>
+                Cliente: {{ order.customer.name }}<br />
+                Email: {{ order.customer.email }}
+            </p>
+            <h4>Endereço</h4>
+            <p>
+                {{ order.customer.address.street }}, {{ order.customer.address.number }} - {{ order.customer.address.neighborhood }}<br />
+                {{ order.customer.address.city }} / {{ order.customer.address.state }}<br />
+                CEP: {{ order.customer.address.postalCode }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

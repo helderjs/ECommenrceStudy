@@ -1,0 +1,52 @@
+<div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Final Price</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% set total = 0 %}
+            {% for item in order.items %}
+                {% set total = total + (item.product.price * item.quantity) %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td>{{ item.quantity * item.product.price }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5" align="right"><b>Total:</b> {{ total }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h4>Dados:</h4>
+        <p>
+            Cliente: {{ order.customer.name }}<br />
+            Email: {{ order.customer.email }}
+        </p>
+        <h4>Endereço</h4>
+        <p>
+            {{ order.customer.address.street }}, {{ order.customer.address.number }} - {{ order.customer.address.neighborhood }}<br />
+            {{ order.customer.address.city }} / {{ order.customer.address.state }}<br />
+            CEP: {{ order.customer.address.postalCode }}
+        </p>
+    </div>
+    <form method="post" action="/order/confirm/{{ order.id }}">
+        <div>
+            <span>Forma de Pagamento:</span>
+            <select name="payment">
+                <option value="credit-card">Cartão de crédito</option>
+                <option value="billet">Boleto</option>
+            </select>
+        </div>
+        <div><input type="submit" value="Confirmar Pedido" /></div>
+    </form>
+</div>

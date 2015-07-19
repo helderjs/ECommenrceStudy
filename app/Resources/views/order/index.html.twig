@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pedido</th>
+                    <th>Data</th>
+                    <th>Itens</th>
+                    <th>Status</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.date|date('m/d/Y') }}</td>
+                    <td>{{ order.items|length }}</td>
+                    {% set total = 0 %}
+                    {% for item in order.items %}
+                        {% set total = total + (item.product.price * item.quantity) %}
+                    {% endfor %}
+                    <td>{{ order.status }}</td>
+                    <td>{{ total }}</td>
+                    <td><a href="/order/{{ order.id }}"><button>Vizualizar</button></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
