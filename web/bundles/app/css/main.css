@@ -1,0 +1,36 @@
+#header {
+    height: 44px;
+    background: #4679bd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#content {
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+ul {
+    float: left;
+    list-style: none;
+}
+
+ul.right {
+    float: right;
+}
+
+ul.li {
+    float: left;
+}
+
+ul li.user {
+    display: block;
+    width: 200px;
+    height: 44px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 17px;
+}
