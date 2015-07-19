@@ -2,29 +2,52 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}E-Commerce!{% endblock %}</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div>
+        <div id="header">
             {% if is_granted("ROLE_USER") %}
-                <span>Olá {{ app.user.name }}</span>
-                <span><a href="/order">Meus Pedidos</a></span>
+                <ul>
+                    <li class="user">
+                        <span>Olá, {{ app.user.name }}</span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <span><a href="/order">Meus Pedidos</a></span>
+                    </li>
+                </ul>
             {% endif %}
+
 
             {% set cart_data = app.session.get('cart') %}
             {% set cart_count = 0 %}
             {% for item in cart_data %}
             {% set cart_count = cart_count + item.quantity %}
             {% endfor %}
-            <a href="/cart"><span>{{ cart_count }}</span></a>
+            <ul>
+                <li class="fa fa-shopping-cart">
+                    <a class="icon-shopping-cart" href="/cart"><span>{{ cart_count }}</span></a>
+                </li>
+            </ul>
 
             {% if is_granted("ROLE_USER") %}
-                <a href="/logout">Sair</a>
+                <ul class="right">
+                    <li>
+                        <a href="/logout">Sair</a>
+                    </li>
+                </ul>
             {% endif %}
         </div>
-        {% block body %}{% endblock %}
+        <div id="content">
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

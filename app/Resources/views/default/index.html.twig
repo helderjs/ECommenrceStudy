@@ -2,15 +2,17 @@
 
 {% block body %}
     {% for product in products %}
-        <h4><a href="/product/{{ product.id }}">{{ product.name }}</a></h4>
-        <p>{{ product.description }}</p>
-        <p>Price: {{ product.price }}</p>
+        <div>
+            <h4><a href="/product/{{ product.id }}">{{ product.name }}</a></h4>
+            <p>{{ product.description }}</p>
+            <p>Price: {{ product.price }}</p>
 
-        {% set categories = [] %}
-        {% for category in product.categories %}
-            {% set categories = categories|merge([category.name]) %}
-        {% endfor %}
+            {% set categories = [] %}
+            {% for category in product.categories %}
+                {% set categories = categories|merge([category.name]) %}
+            {% endfor %}
 
-        <p>Categories: {{ categories|join(', ') }}</p>
+            <p>Categories: {{ categories|join(', ') }}</p>
+        </div>
     {% endfor %}
 {% endblock %}
