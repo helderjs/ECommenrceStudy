@@ -19,6 +19,7 @@ class ProductService
 
     /**
      * @param $id
+     * @throws \Exception
      * @return Product
      */
     public function getProduct($id)
@@ -27,7 +28,7 @@ class ProductService
             ->find($id);
 
         if (!$product) {
-            throw $this->createNotFoundException(
+            throw new \Exception(
                 'No product found for id '.$id
             );
         }
