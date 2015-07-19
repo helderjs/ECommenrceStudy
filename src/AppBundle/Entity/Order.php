@@ -32,7 +32,7 @@ class Order
     private $date;
 
     /**
-     * @ORM\OneToOne(targetEntity="Customer")
+     * @ORM\ManyToOne(targetEntity="Customer")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", onDelete="set null")
      **/
     private $customer;
@@ -48,7 +48,7 @@ class Order
     private $payment;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Item")
+     * @ORM\ManyToMany(targetEntity="Item", cascade={"persist"})
      * @ORM\JoinTable(name="orders_items",
      *      joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id", onDelete="cascade")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="item_id", referencedColumnName="id")}
