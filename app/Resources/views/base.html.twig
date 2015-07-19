@@ -10,6 +10,7 @@
         <div>
             {% if is_granted("ROLE_USER") %}
                 <span>Olá {{ app.user.name }}</span>
+                <span><a href="/order">Meus Pedidos</a></span>
             {% endif %}
 
             {% set cart_data = app.session.get('cart') %}
