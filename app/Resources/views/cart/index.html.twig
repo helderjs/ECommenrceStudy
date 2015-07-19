@@ -3,12 +3,12 @@
 {% block body %}
     <table>
         <thead>
-            <th>
-                <td>Product</td>
-                <td>Quantity</td>
-                <td>Unit Price</td>
-                <td>Final Price</td>
-            </th>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Preço Total</th>
+            </tr>
         </thead>
         <tbody>
         {% for product in products %}
@@ -17,9 +17,16 @@
                 <td><input type="text" max="3" value="{{ product.quantity }}"></td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.quantity * product.price }}</td>
+                <td>
+                    <a href="/cart/update/{{ product.id }}"><button>Atualizar</button></a>
+                    <a href="/cart/remove/{{ product.id }}"><button>Remover</button></a>
+                </td>
+            </tr>
+        {% endfor %}
+            <tr>
+                <td colspan="5" align="right"><b>Total:</b> {{ total }}</td>
             </tr>
         </tbody>
-    {% endfor %}
     </table>
-    <p><a href="/"><button>Continue shopping</button></a><a href="/cart/checkout"><button>Checkout</button></a></p>
+    <p><a href="/"><button>Continuar Comprando</button></a><a href="/order/checkout"><button>Comprar</button></a></p>
 {% endblock %}
